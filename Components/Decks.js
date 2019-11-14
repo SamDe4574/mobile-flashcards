@@ -1,16 +1,18 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import Decks from './Components/Decks';
-import NewDeck from './Components/NewDeck';
 
 
-export default function App() {
+export default class Decks extends React.Component {
+
+render(){
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+      <Text>REACT NATIVE</Text>
     </View>
-  );
+  )
 }
+}
+
 
 const styles = StyleSheet.create({
   container: {

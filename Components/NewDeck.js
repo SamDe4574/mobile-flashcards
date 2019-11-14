@@ -1,13 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import Decks from './Components/Decks';
-import NewDeck from './Components/NewDeck';
 
 
-export default function App() {
+export default function NewDeck() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+      <Text>REACT NATIVE 2</Text>
     </View>
   );
 }
