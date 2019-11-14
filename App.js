@@ -2,6 +2,8 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Decks from './Components/Decks';
 import NewDeck from './Components/NewDeck';
+import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
+
 
 
 export default function App() {
