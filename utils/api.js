@@ -1,12 +1,12 @@
 import { AsyncStorage } from 'react-native'
-import {initialDeckData} from './_DATA.js';
+import {initialDeckData} from './_Data.js';
 
 
 const MOBILE_FLASHCARDS_DECKS_KEY = "MobileFlashCards:Decks"
 
 
 
-export function _saveDeck(newDeck) {
+export function saveDeck(newDeck) {
   // clearStorage();
 
   AsyncStorage.getItem(MOBILE_FLASHCARDS_DECKS_KEY).then((initialDeckData) => {
@@ -19,7 +19,7 @@ export function _saveDeck(newDeck) {
 }
 
 
-export function _getDecks() {
+export function getDecks() {
   return AsyncStorage.getItem(MOBILE_FLASHCARDS_DECKS_KEY)
     .then(response => JSON.parse(response))
       .then(response => {
@@ -30,13 +30,13 @@ export function _getDecks() {
 }
 
 
-export function _saveCardToDeck(decKey, card) {
+export function saveCardToDeck(decKey, card) {
   return AsyncStorage.getItem(MOBILE_FLASHCARDS_DECKS_KEY).then((initialDeckData) => {
     const decks = JSON.parse(initialDeckData);
     decks[decKey].questions.push(card);
     AsyncStorage.setItem(MOBILE_FLASHCARDS_DECKS_KEY, JSON.stringify(decks));
   });
-
+}
 export function clearStorage() {
   AsyncStorage.setItem(MOBILE_FLASHCARDS_DECKS_KEY, '');
 }
