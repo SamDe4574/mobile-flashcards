@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { View, KeyboardAvoidingView, Text, TextInput, StyleSheet, Alert , TouchableOpacity} from 'react-native'
+import { View, KeyboardAvoidingView, Text, TextInput, StyleSheet, Alert , TouchableOpacity , Platform} from 'react-native'
 import { connect } from 'react-redux'
 import { addNewDeck } from '../actions'
 import { saveDeck } from '../utils/api'
@@ -60,6 +60,7 @@ class NewDeck extends Component {
         </View>
         <View>
           <TouchableOpacity
+          style={Platform.OS === 'ios' ? [styles.btn, styles.iosBtn] : [styles.btn, styles.androidBtn]}
             onPress={() => this.onSubmit()}>
             <Text>Create Deck</Text>
             </TouchableOpacity>
@@ -97,7 +98,18 @@ const styles = StyleSheet.create({
     margin: 10,
     padding: 10,
     alignSelf: 'center'
-  }
+  },
+  btn: {
+    padding: 10,
+    marginBottom: 25,
+    borderWidth: 1
+  },
+  iosBtn: {
+    borderRadius: 7,
+  },
+  androidBtn: {
+    borderRadius: 2,
+  },
 })
 
 const mapStateToProps = ({ decks }) => ({ decks })
