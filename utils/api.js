@@ -7,7 +7,6 @@ const MOBILE_FLASHCARDS_DECKS_KEY = "MobileFlashCards:Decks"
 
 
 export function saveDeck(newDeck) {
-  // clearStorage();
 
   AsyncStorage.getItem(MOBILE_FLASHCARDS_DECKS_KEY).then((initialDeckData) => {
     const decksJSON = JSON.parse(initialDeckData);
@@ -30,13 +29,18 @@ export function getDecks() {
 }
 
 
-export function saveCardToDeck(title, card) {
-  return AsyncStorage.getItem(MOBILE_FLASHCARDS_DECKS_KEY)
-    .then(JSON.parse)
-    .then((data) => addCardToDeckCards(data, title, card))
-    .then((data) => {
-      return AsyncStorage.setItem(MOBILE_FLASHCARDS_DECKS_KEY, JSON.stringify(data))
-    })
+export function addCardToDeck(title, card) {
+
+  	return AsyncStorage.getItem(MOBILE_FLASHCARDS_DECKS_KEY).then((results) => {
+
+  		const decks = JSON.parse(results)
+
+  		decks[title].questions.push(card)
+
+  		AsyncStorage.mergeItem(MOBILE_FLASHCARDS_DECKS_KEY, JSON.stringify(decks))
+
+  	})
+
   }
 export function clearStorage() {
   AsyncStorage.setItem(MOBILE_FLASHCARDS_DECKS_KEY, '');

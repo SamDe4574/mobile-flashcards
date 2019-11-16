@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Text, View, TextInput, ScrollView, KeyboardAvoidingView, TouchableOpacity, StyleSheet, Platform } from 'react-native'
 import { connect } from 'react-redux'
-import { addCardToDeck } from '../actions'
-import { saveCardToDeck } from '../utils/api'
+import { addCard } from '../actions'
+import { addCardToDeck } from '../utils/api'
 import { NavigationActions } from 'react-navigation'
 import { gray, white } from '../utils/colors'
 
@@ -38,8 +38,8 @@ class AddQuestion extends Component {
 				answer: this.state.answerInput
 			}
 
-			saveCardToDeck(deckTitle, newCard).then(() => {
-				this.props.dispatch(addCardToDeck(deckTitle, newCard))
+			addCardToDeck(deckTitle, newCard).then(() => {
+				this.props.dispatch(addCard(deckTitle, newCard))
 			})
 
 			this.toDetails()

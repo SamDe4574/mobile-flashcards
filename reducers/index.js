@@ -16,10 +16,17 @@ export default function(state = initialDeckData, action) {
         ...action.payload
       }
     case ADD_NEW_CARD:
-    return {
-      ...state,
-      decks: addCardToDeckCards(state.decks, action.title, action.card)
-    }
+			return {
+				...state,
+				[action.deck]: {
+					title: action.deck,
+					questions: [
+						...state[action.deck].questions,
+						action.card
+					]
+				}
+			}
+
     default:
       return state
   }

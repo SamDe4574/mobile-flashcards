@@ -4,16 +4,13 @@ import * as Permissions from 'expo-permissions';
 
 const NOTIFICATION_KEY = 'mobileFlashCards:notifications';
 
-/**
- * Accreditation: code taken from Udacity React Native 'UdaciFitness' lessons
- */
-export function clearLocalNotification() {
-  return AsyncStorage.removeItem(NOTIFICATION_KEY).then(Notifications.cancelAllScheduledNotificationsAsync);
-}
 
-/**
- * Accreditation: code taken from Udacity React Native 'UdaciFitness' lessons
- */
+export function clearLocalNotification() {
+    return AsyncStorage.removeItem(NOTIFICATION_KEY)
+      .then(Notifications.cancelAllScheduledNotificationsAsync)
+  }
+
+
 function createNotification() {
   return {
     title: 'Learn something today!',
@@ -30,28 +27,38 @@ function createNotification() {
   };
 }
 
-/**
- * Accreditation: code adapted from Udacity React Native 'UdaciFitness' lessons
- */
-export function setLocalNotification(chosenTime) {
+export function setLocalNotification() {
   AsyncStorage.getItem(NOTIFICATION_KEY)
-    .then(JSON.parse)
-    .then((data) => {
-      if (data === null) {
-        Permissions.askAsync(Permissions.NOTIFICATIONS).then(({ status }) => {
-          if (status === 'granted') {
-            Notifications.cancelAllScheduledNotificationsAsync();
+	.then(JSON.parse)
+	.then((data) => {
 
-            Notifications.scheduleLocalNotificationAsync(createNotification(), {
-              time: chosenTime,
-              repeat: 'day',
-            });
+		if (data === null)
+		{
+			Permissions.askAsync(Permissions.NOTIFICATIONS)
+				.then(({ status }) => {
+					if (status === 'granted')
+					{
+						Notifications.cancelAllScheduledNotificationsAsync()
 
-            AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true));
-          }
-        });
-      }
-    });
+						let tomorrow = new Date()
+						tomorrow.setDate(tomorrow.getDate() + 1)
+						tomorrow.setHours(19)
+						tomorrow.setMinutes(0)
+
+						Notifications.scheduleLocalNotificationAsync(
+							createNotification(),
+							{
+							time: tomorrow,
+							repeat: 'day'
+							}
+						)
+
+						AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true))
+					}
+				})
+		}
+
+	})
 }
 
 

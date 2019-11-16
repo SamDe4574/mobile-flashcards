@@ -1,45 +1,65 @@
 import React from 'react';
-import { StyleSheet, Text, View , ScrollView , TouchableOpacity } from 'react-native';
+import { Text, View, TouchableOpacity, FlatList, StyleSheet } from 'react-native'
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation'
+import { getDecks } from '../utils/api'
+import { loadDeckList } from '../actions'
 
-const Deck = ({ deck , navigation }) => (
-  <TouchableOpacity
-    style={styles.deck}
-    onPress={() => navigation.navigate('DeckDetails', deck.title )}
-  >
-    <Text>{deck.title}</Text>
-  </TouchableOpacity>
-  )
+
 
 class Decks extends React.Component {
 
-  render(){
-  return (
-    <ScrollView style={styles.container}>
-        {this.props.decks.map((deck) => (
-          <Deck
-          deck={deck}
-          navigation={this.props.navigation}
-          key={deck.title}
-          />
-          ))
-        }
-      </ScrollView>
-  )
-}
-}
+  	toDeckDetails = (title) => {
 
-const mapStateToProps = state =>{
-  return{
-    decks: Object.keys(state).map((deck) => state[deck] )
+  		this.props.navigation.navigate('DeckDetails', { title })
+
+  	}
+
+  	renderDeckItem = ({ item }) => {
+  		return (
+  			<TouchableOpacity
+  				style={styles.deck}
+  				onPress={() => this.toDeckDetails(item.title)}
+  			>
+  				<Text>{item.title}</Text>
+  				<Text>{item.questions.length}</Text>
+  			</TouchableOpacity>
+  		)
+  	}
+
+  	componentDidMount() {
+
+  		getDecks().then((results) => {
+  			this.props.dispatch(loadDeckList(results))
+  		})
+
+  	}
+
+  	render() {
+
+  		return (
+  			<View style={styles.container}>
+  				<FlatList
+  					data={this.props.decks}
+  					renderItem={this.renderDeckItem}
+  					keyExtractor={(item, index) => item.title}
+  				/>
+  			</View>
+  		)
+  	}
+
   }
-}
+
+
+  function mapStateToProps(decks) {
+  	return {
+  		decks: Object.keys(decks).map((deck) => decks[deck] )
+  	}
+  }
 
 export default connect(mapStateToProps)(Decks);
 
 
-// Component Styles
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,

@@ -14,8 +14,7 @@ class NewDeck extends Component {
   }
 
   toDeckInfo = (deck) => {
-    // going back to home and then to "DeckInfo"
-    // so DeckInfo can back to home when done
+
 
     this.props.navigation.dispatch(NavigationActions.back({
       key: 'NewDeck'
