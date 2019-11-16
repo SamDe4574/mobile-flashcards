@@ -1,5 +1,6 @@
-import { AsyncStorage } from 'react-native';
-import { Notifications, Permissions } from 'expo';
+import { AsyncStorage , Alert } from 'react-native';
+import { Notifications } from 'expo';
+import * as Permissions from 'expo-permissions';
 
 const NOTIFICATION_KEY = 'mobileFlashCards:notifications';
 
@@ -16,10 +17,16 @@ export function clearLocalNotification() {
 function createNotification() {
   return {
     title: 'Learn something today!',
-    body: '👋 don\'t forget to take a quiz today!',
+    body: '🚨 don\'t forget to take a quiz today!🚨',
     ios: {
       sound: true,
     },
+    android:{
+      sound:true,
+      priority:'high',
+      sticky:false,
+      vibrate:true,
+    }
   };
 }
 
@@ -45,4 +52,16 @@ export function setLocalNotification(chosenTime) {
         });
       }
     });
+}
+
+
+
+export function alertMessage(title, message, callback) {
+  return Alert.alert(
+    title,
+    message,
+    [
+      { text: 'OK', onPress: () => callback() }
+    ]
+  );
 }

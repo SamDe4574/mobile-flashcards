@@ -2,7 +2,9 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Decks from './Components/Decks';
 import NewDeck from './Components/NewDeck';
-import { createBottomTabNavigator, createAppContainer} from 'react-navigation';
+import DeckDetails from './Components/DeckDetails';
+import { createBottomTabNavigator, createAppContainer , createSwitchNavigator} from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -40,6 +42,19 @@ const TabNavigator = createMaterialBottomTabNavigator({
   },
 );
 
-const MainNavigator =  createAppContainer(TabNavigator);
+const BtnStack = createStackNavigator({
+  DeckDetails: {
+    screen: DeckDetails,
+    navigationOptions: {
+      title: 'DeckDetails',
+    }
+  },
+});
+
+const MainNavigator = createAppContainer(createSwitchNavigator(
+  {
+    TabNavigator: TabNavigator,
+    BtnStack: BtnStack,
+  }));
 
 export default MainNavigator;
