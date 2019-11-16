@@ -3,6 +3,8 @@ import { StyleSheet, Text, View } from 'react-native';
 import Decks from './Components/Decks';
 import NewDeck from './Components/NewDeck';
 import DeckDetails from './Components/DeckDetails';
+import AddQuestion from './Components/AddQuestion';
+import Quiz from './Components/Quiz';
 import { createBottomTabNavigator, createAppContainer , createSwitchNavigator} from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
@@ -43,10 +45,28 @@ const TabNavigator = createMaterialBottomTabNavigator({
 );
 
 const BtnStack = createStackNavigator({
+  Decks: {
+    screen: Decks,
+    navigationOptions: {
+      title: 'Decks',
+    }
+  },
   DeckDetails: {
     screen: DeckDetails,
     navigationOptions: {
-      title: 'DeckDetails',
+      title: 'Deck Details',
+    }
+  },
+  AddQuestion: {
+    screen: AddQuestion,
+    navigationOptions: {
+      title: 'Add Question',
+      }
+    },
+  Quiz: {
+    screen: Quiz,
+    navigationOptions: {
+      title: 'Quiz',
     }
   },
 });

@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View , ScrollView , TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
+import DeckDetails from './DeckDetails';
 import { NavigationActions } from 'react-navigation'
 
 const Deck = ({ deck , navigation }) => (

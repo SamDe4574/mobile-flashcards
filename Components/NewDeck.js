@@ -29,7 +29,7 @@ class NewDeck extends Component {
 
   onSubmit = () => {
     const { title } = this.state;
-    if (title.length >= 5) {
+    if (title.length >= 3) {
       this.props.addNewDeck(this.state.title);
       alertMessage('Success!!', 'A new deck was added!!', () =>     this.props.navigation.dispatch(NavigationActions.back({key: 'NewDeck'})));
       this.setState(() => ({

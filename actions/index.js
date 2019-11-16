@@ -27,17 +27,10 @@ export function addNewDeck(title) {
   }
 }
 
-export function addCardToDeck(decKey, card) {
-  return dispatch => {
-    // The application will update modified state only...
-    saveCardToDeck(decKey, card).then(() => {
-      dispatch({
-        type: ADD_NEW_CARD,
-        payload: {
-          decKey,
-          card: card
-        }
-      });
-    })
-  }
+export function addCard(deck, card) {
+	return {
+		type: ADD_NEW_CARD,
+		deck,
+		card
+	}
 }

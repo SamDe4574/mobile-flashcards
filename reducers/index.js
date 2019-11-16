@@ -8,7 +8,7 @@ export default function(state = initialDeckData, action) {
       return {
         ...state,
         ...action.payload
-        
+
       }
     case ADD_NEW_DESK:
       return {
@@ -16,14 +16,10 @@ export default function(state = initialDeckData, action) {
         ...action.payload
       }
     case ADD_NEW_CARD:
-      const { decKey, card } = action.payload;
-      return {
-        ...state,
-        [decKey]: {
-          ...state[decKey],
-          questions: state[decKey].questions.concat(card)
-        }
-      }
+    return {
+      ...state,
+      decks: addCardToDeckCards(state.decks, action.title, action.card)
+    }
     default:
       return state
   }
