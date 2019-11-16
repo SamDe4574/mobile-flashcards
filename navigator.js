@@ -45,10 +45,10 @@ const TabNavigator = createMaterialBottomTabNavigator({
 );
 
 const BtnStack = createStackNavigator({
-  Decks: {
-    screen: Decks,
+  Home: {
+    screen: TabNavigator,
     navigationOptions: {
-      title: 'Decks',
+      title: 'Home',
     }
   },
   DeckDetails: {
@@ -73,7 +73,6 @@ const BtnStack = createStackNavigator({
 
 const MainNavigator = createAppContainer(createSwitchNavigator(
   {
-    TabNavigator: TabNavigator,
     BtnStack: BtnStack,
   }));
 
